@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Piercing Studio | Body Piercing & Joalharia de Titânio</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            purpleCustom: {
+              400: '#c084fc',
+              500: '#a855f7',
+              600: '#9333ea',
+            },
+            silver: {
+              300: '#cbd5e1',
+              400: '#94a3b8',
+            },
+            studio: {
+              dark: '#0d0d12',
+              card: '#161620',
+              border: '#2a2a3a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos Customizados para Acessibilidade e Ajuste Global de Fonte */
+    :root {
+      --base-font-size: 16px;
+    }
+
+    html {
+      font-size: var(--base-font-size);
+      scroll-behavior: smooth;
+    }
+
+    /* Alto Contraste Extremo */
+    body.high-contrast {
+      background-color: #000000 !important;
+      color: #ffff00 !important;
+    }
+
+    body.high-contrast * {
+      background-color: #000000 !important;
+      color: #ffff00 !important;
+      border-color: #ffff00 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+
+    body.high-contrast button,
+    body.high-contrast a {
+      outline: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+    }
+
+    /* Modo Monocromático */
+    body.grayscale-mode {
+      filter: grayscale(100%);
+    }
+
+    /* Foco acessível bem visível para navegação por teclado */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid #c084fc !important;
+      outline-offset: 3px !important;
+    }
+  </style>
+</head>
+<body class="bg-studio-dark text-gray-100 min-h-screen flex flex-col font-sans antialiased selection:bg-purpleCustom-500 selection:text-white">
+
+  <!-- BARRA FIXA DE ACESSIBILIDADE -->
+  <aside aria-label="Barra de Ferramentas de Acessibilidade" class="sticky top-0 z-50 bg-neutral-900 border-b border-neutral-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-sm">
+      <div class="flex items-center gap-2 font-semibold text-purpleCustom-400">
+        <i data-lucide="accessibility" class="w-5 h-5" aria-hidden="true"></i>
+        <span>Acessibilidade:</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Controlo de Texto e Visualização">
+        <!-- Controlos de Tamanho de Fonte -->
+        <div class="flex items-center bg-neutral-800 rounded-lg p-1 border border-neutral-700">
+          <button id="btn-dec-font" title="Diminuir tamanho da fonte" aria-label="Diminuir tamanho da fonte" class="px-2.5 py-1 hover:bg-neutral-700 rounded transition font-bold text-base">
+            A-
+          </button>
+          <button id="btn-reset-font" title="Restaurar tamanho da fonte original" aria-label="Restaurar tamanho da fonte original" class="px-2.5 py-1 hover:bg-neutral-700 rounded transition text-xs font-semibold border-x border-neutral-700">
+            A (Normal)
+          </button>
+          <button id="btn-inc-font" title="Aumentar tamanho da fonte" aria-label="Aumentar tamanho da fonte" class="px-2.5 py-1 hover:bg-neutral-700 rounded transition font-bold text-lg">
+            A+
+          </button>
+        </div>
+
+        <!-- Botões de Ajuste de Modo Visual -->
+        <button id="btn-contrast" aria-pressed="false" class="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition font-medium">
+          <i data-lucide="eye" class="w-4 h-4 text-purpleCustom-400" aria-hidden="true"></i>
+          <span>Alto Contraste</span>
+        </button>
+
+        <button id="btn-grayscale" aria-pressed="false" class="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition font-medium">
+          <i data-lucide="sun-moon" class="w-4 h-4 text-purpleCustom-400" aria-hidden="true"></i>
+          <span>Monocromático</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVEGAÇÃO PRINCIPAL -->
+  <nav class="bg-studio-card/90 backdrop-blur-md border-b border-studio-border sticky top-[45px] z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-2 text-2xl font-black tracking-wider text-white uppercase">
+        <i data-lucide="sparkles" class="w-7 h-7 text-purpleCustom-400" aria-hidden="true"></i>
+        <span>AURA <span class="text-purpleCustom-400">PIERCING</span></span>
+      </a>
+
+      <!-- Menu Desktop -->
+      <ul class="hidden md:flex items-center gap-8 font-medium text-gray-300">
+        <li><a href="#locais" class="hover:text-purpleCustom-400 transition">Locais & Perfurações</a></li>
+        <li><a href="#joalharia" class="hover:text-purpleCustom-400 transition">Joalharia</a></li>
+        <li><a href="#seguranca" class="hover:text-purpleCustom-400 transition">Biossegurança</a></li>
+        <li><a href="#cuidados" class="hover:text-purpleCustom-400 transition">Cuidados</a></li>
+        <li><a href="#faq" class="hover:text-purpleCustom-400 transition">Perguntas Frequentes</a></li>
+      </ul>
+
+      <a href="#agendamento" class="hidden sm:inline-flex items-center gap-2 bg-purpleCustom-500 hover:bg-purpleCustom-600 text-white font-bold px-5 py-2.5 rounded-lg transition shadow-lg shadow-purpleCustom-500/20">
+        <i data-lucide="calendar" class="w-4 h-4" aria-hidden="true"></i>
+        <span>Marcar Marcação</span>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="relative py-20 md:py-28 bg-gradient-to-b from-neutral-900 to-studio-dark border-b border-studio-border overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purpleCustom-500/10 border border-purpleCustom-500/30 text-purpleCustom-400 text-sm font-semibold">
+            <i data-lucide="shield-check" class="w-4 h-4" aria-hidden="true"></i>
+            <span>Titânio Grau Implante (ASTM F-136) & Agulhas Americanas</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+            PERFURAÇÕES DE PRECISÃO & <span class="text-purpleCustom-400">JOALHARIA DE ALTA QUALIDADE</span>.
+          </h1>
+          <p class="text-gray-300 text-lg max-w-xl">
+            A tua segurança e estética em primeiro lugar. Procedimentos realizados por profissionais certificados, com material 100% esterilizado e descartável num ambiente acolhedor e acessível.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#agendamento" class="bg-purpleCustom-500 hover:bg-purpleCustom-600 text-white font-bold px-8 py-4 rounded-xl transition flex items-center gap-2 shadow-xl shadow-purpleCustom-500/20 text-lg">
+              <i data-lucide="sparkles" class="w-5 h-5" aria-hidden="true"></i>
+              <span>Agendar Perfuração</span>
+            </a>
+            <a href="#cuidados" class="bg-neutral-800 hover:bg-neutral-700 text-white font-semibold px-8 py-4 rounded-xl border border-neutral-700 transition flex items-center gap-2 text-lg">
+              <i data-lucide="heart-pulse" class="w-5 h-5 text-purpleCustom-400" aria-hidden="true"></i>
+              <span>Guia de Cicatrização</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual Ilustrativo de Destaque -->
+        <div class="relative flex justify-center">
+          <div class="w-full max-w-md bg-studio-card rounded-2xl border-2 border-purpleCustom-500/30 p-6 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-studio-border pb-4 mb-4">
+              <span class="text-xs font-mono uppercase tracking-widest text-purpleCustom-400 font-bold">Destaque da Semana</span>
+              <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs px-2.5 py-1 rounded-full font-semibold">Asséptico & Seguro</span>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-neutral-900 border border-neutral-800 flex items-start gap-3">
+                <i data-lucide="gem" class="w-6 h-6 text-purpleCustom-400 shrink-0 mt-1" aria-hidden="true"></i>
+                <div>
+                  <h2 class="font-bold text-white text-base">Joalharia Hipoalergénica</h2>
+                  <p class="text-sm text-gray-400">Trabalhamos exclusivamente com Titânio de Grau Médico e Ouro de 14k/18k sem níquel.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-neutral-900 border border-neutral-800 flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-6 h-6 text-purpleCustom-400 shrink-0 mt-1" aria-hidden="true"></i>
+                <div>
+                  <h2 class="font-bold text-white text-base">Técnica Freehand & Cateter Passante</h2>
+                  <p class="text-sm text-gray-400">Procedimento mais rápido, preciso e com traumatismo mínimo para o tecido.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-neutral-900 border border-neutral-800 flex items-start gap-3">
+                <i data-lucide="award" class="w-6 h-6 text-purpleCustom-400 shrink-0 mt-1" aria-hidden="true"></i>
+                <div>
+                  <h2 class="font-bold text-white text-base">Acompanhamento Pós-Perfuração</h2>
+                  <p class="text-sm text-gray-400">Consultas de verificação e redução de haste (downsize) gratuitas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO DE LOCAIS & PERFURAÇÕES -->
+    <section id="locais" class="py-16 max-w-7xl mx-auto px-4">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl font-black text-white">LOCAIS DE PERFURAÇÃO</h2>
+        <p class="text-gray-400 mt-2">Explora as zonas mais populares e escolhe o teu próximo piercing.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Orelha -->
+        <article class="bg-studio-card border border-studio-border rounded-xl p-6 hover:border-purpleCustom-500/50 transition group">
+          <div class="w-12 h-12 bg-purpleCustom-500/10 border border-purpleCustom-500/20 rounded-lg flex items-center justify-center text-purpleCustom-400 mb-4 group-hover:scale-110 transition">
+            <i data-lucide="disc" class="w-6 h-6" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Orelha (Cartilagem & Lóbulo)</h3>
+          <p class="text-gray-400 text-sm mb-4">Helix, Tragus, Conch, Rook, Daith, Flat e Lóbulos. Ideias para composições únicas.</p>
+          <span class="text-xs font-mono text-purpleCustom-400">Tempo Médio: 3 a 9 meses</span>
+        </article>
+
+        <!-- Nariz -->
+        <article class="bg-studio-card border border-studio-border rounded-xl p-6 hover:border-purpleCustom-500/50 transition group">
+          <div class="w-12 h-12 bg-purpleCustom-500/10 border border-purpleCustom-500/20 rounded-lg flex items-center justify-center text-purpleCustom-400 mb-4 group-hover:scale-110 transition">
+            <i data-lucide="circle-dot" class="w-6 h-6" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Nasal (Nostril & Septo)</h3>
+          <p class="text-gray-400 text-sm mb-4">Perfurações clássicas na aba nasal ou no septo com joalharia inicial adequada.</p>
+          <span class="text-xs font-mono text-purpleCustom-400">Tempo Médio: 2 a 4 meses</span>
+        </article>
+
+        <!-- Boca / Lábios -->
+        <article class="bg-studio-card border border-studio-border rounded-xl p-6 hover:border-purpleCustom-500/50 transition group">
+          <div class="w-12 h-12 bg-purpleCustom-500/10 border border-purpleCustom-500/20 rounded-lg flex items-center justify-center text-purpleCustom-400 mb-4 group-hover:scale-110 transition">
+            <i data-lucide="smile" class="w-6 h-6" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Oral & Labial</h3>
+          <p class="text-gray-400 text-sm mb-4">Labret, Medusa, Monroe e Freio. Cuidados especiais para a mucosa oral.</p>
+          <span class="text-xs font-mono text-purpleCustom-400">Tempo Médio: 2 a 3 meses</span>
+        </article>
+
+        <!-- Sobrancelha & Outros -->
+        <article class="bg-studio-card border border-studio-border rounded-xl p-6 hover:border-purpleCustom-500/50 transition group">
+          <div class="w-12 h-12 bg-purpleCustom-500/10 border border-purpleCustom-500/20 rounded-lg flex items-center justify-center text-purpleCustom-400 mb-4 group-hover:scale-110 transition">
+            <i data-lucide="minus-rotate-2" class="w-6 h-6" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Facial & Corporal</h3>
+          <p class="text-gray-400 text-sm mb-4">Sobrancelha, Umbigo e Microdormais. Estética ajustada à anatomia do teu corpo.</p>
+          <span class="text-xs font-mono text-purpleCustom-400">Tempo Médio: 3 a 6 meses</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECÇÃO DE JOALHARIA -->
+    <section id="joalharia" class="py-16 bg-neutral-900 border-y border-studio-border">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <h2 class="text-3xl font-black text-white">CATÁLOGO DE JOALHARIA</h2>
+            <p class="text-gray-400 mt-2">Trabalhamos apenas com materiais biocompatíveis e topo de gama.</p>
+          </div>
+          <div class="flex gap-2">
+            <span class="px-3 py-1 bg-purpleCustom-500/10 border border-purpleCustom-500/30 text-purpleCustom-400 rounded-lg text-sm font-semibold">Titânio ASTM F-136</span>
+            <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-lg text-sm font-semibold">Ouro 14k Sem Níquel</span>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Item 1 -->
+          <div class="bg-studio-card rounded-xl border border-studio-border p-5 flex flex-col justify-between">
+            <div>
+              <div class="h-48 bg-neutral-900 rounded-lg border border-neutral-800 flex items-center justify-center mb-4">
+                [Imagem de Topo em Titânio com Zircónia]
+              </div>
+              <h3 class="text-lg font-bold text-white">Topo Cluster com Zircónias</h3>
+              <p class="text-sm text-gray-400 mt-1">Titânio de Rosca Interna / Push-pin. Ideal para Helix ou Conch.</p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-neutral-800 flex justify-between items-center">
+              <span class="text-purpleCustom-400 font-bold">Desde 25,00 €</span>
+              <span class="text-xs text-gray-400">Hipoalergénico</span>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="bg-studio-card rounded-xl border border-studio-border p-5 flex flex-col justify-between">
+            <div>
+              <div class="h-48 bg-neutral-900 rounded-lg border border-neutral-800 flex items-center justify-center mb-4">
+                [Imagem de Argola Segmento Articulado em Titânio]
+              </div>
+              <h3 class="text-lg font-bold text-white">Argola Clicker Segmentada</h3>
+              <p class="text-sm text-gray-400 mt-1">Fecho fácil e seguro. Perfeita para Septo, Daith ou Nostril cicatrizado.</p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-neutral-800 flex justify-between items-center">
+              <span class="text-purpleCustom-400 font-bold">Desde 20,00 €</span>
+              <span class="text-xs text-gray-400">Polimento Espelho</span>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="bg-studio-card rounded-xl border border-studio-border p-5 flex flex-col justify-between">
+            <div>
+              <div class="h-48 bg-neutral-900 rounded-lg border border-neutral-800 flex items-center justify-center mb-4">
+                [Imagem de Labret de Titânio Básica]
+              </div>
+              <h3 class="text-lg font-bold text-white">Labret Base Retas (Inicial)</h3>
+              <p class="text-sm text-gray-400 mt-1">Comprimento adaptado para inchaço inicial. Rosca interna biocompatível.</p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-neutral-800 flex justify-between items-center">
+              <span class="text-purpleCustom-400 font-bold">Incluído no Serviço</span>
+              <span class="text-xs text-emerald-400">Grau Médico</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO DE BIOSSEGURANÇA -->
+    <section id="seguranca" class="py-16 max-w-7xl mx-auto px-4">
+      <div class="bg-gradient-to-r from-purpleCustom-900/30 via-studio-card to-studio-card border border-purpleCustom-500/30 rounded-2xl p-8 md:p-12">
+        <div class="max-w-3xl">
+          <span class="text-purpleCustom-400 font-mono text-sm uppercase font-bold tracking-wider">Protocolo de Higiene</span>
+          <h2 class="text-3xl font-black text-white mt-2">BIOSSEGURANÇA EM PRIMEIRO LUGAR</h2>
+          <p class="text-gray-300 mt-4 leading-relaxed">
+            Todas as nossas agulhas são americanas (blade needles), estéreis e de uso único. A joalharia e ferramentas passam por limpeza ultrassónica e esterilização em autoclave de Classe B com teste de esporos mensal.
+          </p>
+
+          <div class="grid sm:grid-cols-3 gap-4 mt-8">
+            <div class="bg-black/40 p-4 rounded-xl border border-neutral-800">
+              <i data-lucide="shield" class="w-6 h-6 text-purpleCustom-400 mb-2" aria-hidden="true"></i>
+              <h3 class="font-bold text-white">Autoclave Classe B</h3>
+              <p class="text-xs text-gray-400 mt-1">Esterilização por vapor sob pressão monitorizada.</p>
+            </div>
+
+            <div class="bg-black/40 p-4 rounded-xl border border-neutral-800">
+              <i data-lucide="x-circle" class="w-6 h-6 text-purpleCustom-400 mb-2" aria-hidden="true"></i>
+              <h3 class="font-bold text-white">Sem Pistolas</h3>
+              <p class="text-xs text-gray-400 mt-1">Não utilizamos pistolas. Apenas agulhas cirúrgicas de alta precisão.</p>
+            </div>
+
+            <div class="bg-black/40 p-4 rounded-xl border border-neutral-800">
+              <i data-lucide="package-check" class="w-6 h-6 text-purpleCustom-400 mb-2" aria-hidden="true"></i>
+              <h3 class="font-bold text-white">Abertura à Tua Frente</h3>
+              <p class="text-xs text-gray-400 mt-1">Todo o material estéril é aberto na tua presença durante a consulta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO DE CUIDADOS -->
+    <section id="cuidados" class="py-16 bg-neutral-900 border-t border-studio-border">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-3xl font-black text-white">CUIDADOS DE CICATRIZAÇÃO</h2>
+          <p class="text-gray-400 mt-2">Siga este guia simples para garantir uma cicatrização rápida e sem complicações.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-studio-card border border-emerald-500/30 rounded-xl p-6">
+            <h3 class="text-xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
+              <i data-lucide="check" class="w-6 h-6" aria-hidden="true"></i>
+              <span>O QUE DEVES FAZER</span>
+            </h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-emerald-400 shrink-0" aria-hidden="true"></i>
+                Lavar as mãos cuidadosamente antes de tocar na zona do piercing.
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-emerald-400 shrink-0" aria-hidden="true"></i>
+                Limpar 2 vezes ao dia com soro fisiológico estéril a 0.9%.
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-emerald-400 shrink-0" aria-hidden="true"></i>
+                Secar suavemente com uma compressa de não-tecido descartável.
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-emerald-400 shrink-0" aria-hidden="true"></i>
+                Regressar ao estúdio após 4 a 6 semanas para a redução da haste (downsize).
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-studio-card border border-rose-500/30 rounded-xl p-6">
+            <h3 class="text-xl font-bold text-rose-400 mb-4 flex items-center gap-2">
+              <i data-lucide="x" class="w-6 h-6" aria-hidden="true"></i>
+              <span>O QUE DEVES EVITAR</span>
+            </h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-rose-400 shrink-0" aria-hidden="true"></i>
+                Não rodar ou mover a joia enquanto estiver a cicatrizar.
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-rose-400 shrink-0" aria-hidden="true"></i>
+                Evitar álcool, água oxigenada, pomadas espessas ou antissépticos agressivos.
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-rose-400 shrink-0" aria-hidden="true"></i>
+                Não frequentar piscinas, praias ou saunas nas primeiras 4 semanas.
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="dot" class="w-5 h-5 text-rose-400 shrink-0" aria-hidden="true"></i>
+                Evitar dormir por cima da perfuração recente.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO PERGUNTAS FREQUENTES (FAQ) -->
+    <section id="faq" class="py-16 max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl font-black text-white text-center mb-10">PERGUNTAS FREQUENTES</h2>
+      
+      <div class="space-y-4">
+        <details class="bg-studio-card border border-studio-border rounded-xl p-5 group">
+          <summary class="font-bold text-white cursor-pointer flex justify-between items-center list-none">
+            <span>Dói muito fazer um piercing?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-purpleCustom-400 group-open:rotate-180 transition" aria-hidden="true"></i>
+          </summary>
+          <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+            A sensação de dor varia de pessoa para pessoa e do local escolhido. Como utilizamos agulhas americanas ultra-afiadas e técnicas eficientes, a perfuração é extremamente rápida e desconfortável apenas por um segundo.
+          </p>
+        </details>
+
+        <details class="bg-studio-card border border-studio-border rounded-xl p-5 group">
+          <summary class="font-bold text-white cursor-pointer flex justify-between items-center list-none">
+            <span>Posso levar a minha própria joia?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-purpleCustom-400 group-open:rotate-180 transition" aria-hidden="true"></i>
+          </summary>
+          <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+            Para garantir a tua segurança e esterilização adequada, realizamos perfurações iniciais apenas com as nossas joias de Titânio ASTM F-136 de grau implante, das quais conhecemos a procedência e certificação do material.
+          </p>
+        </details>
+
+        <details class="bg-studio-card border border-studio-border rounded-xl p-5 group">
+          <summary class="font-bold text-white cursor-pointer flex justify-between items-center list-none">
+            <span>Qual é a idade mínima para fazer um piercing?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-purpleCustom-400 group-open:rotate-180 transition" aria-hidden="true"></i>
+          </summary>
+          <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+            Com permissão do encarregado de educação e acompanhamento presencial, realizamos perfurações a partir dos 14 anos (ou perfuração de lóbulo em idades inferiores). A partir dos 18 anos podes agendar de forma autónoma com apresentação de documento de identificação.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- SECÇÃO DE AGENDAMENTO / CONTACTO -->
+    <section id="agendamento" class="py-16 bg-neutral-900 border-t border-studio-border">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-black text-white">MARCA O TEU AGENDAMENTO</h2>
+        <p class="text-gray-400 mt-2 mb-8">Garante o teu horário com antecedência ou vem esclarecer as tuas dúvidas connosco.</p>
+
+        <form id="form-agendamento" class="bg-studio-card border border-studio-border p-6 md:p-8 rounded-2xl text-left space-y-4 shadow-xl">
+          <div>
+            <label for="nome" class="block text-sm font-medium text-gray-300 mb-1">Nome Completo</label>
+            <input type="text" id="nome" required placeholder="O teu nome" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-white focus:border-purpleCustom-500 focus:outline-none">
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Correio Eletrónico</label>
+              <input type="email" id="email" required placeholder="exemplo@email.com" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-white focus:border-purpleCustom-500 focus:outline-none">
+            </div>
+            <div>
+              <label for="zona" class="block text-sm font-medium text-gray-300 mb-1">Zona Pretendida</label>
+              <select id="zona" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-white focus:border-purpleCustom-500 focus:outline-none">
+                <option>Orelha (Cartilagem/Lóbulo)</option>
+                <option>Nariz (Nostril/Septo)</option>
+                <option>Boca / Lábio</option>
+                <option>Sobrancelha</option>
+                <option>Umbigo / Outros</option>
+                <option>Troca de Joia / Consulta</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="mensagem" class="block text-sm font-medium text-gray-300 mb-1">Observações ou Dúvidas</label>
+            <textarea id="mensagem" rows="3" placeholder="Indica preferências de dia ou dúvidas..." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-white focus:border-purpleCustom-500 focus:outline-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-purpleCustom-500 hover:bg-purpleCustom-600 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 text-lg shadow-lg shadow-purpleCustom-500/20">
+            <i data-lucide="send" class="w-5 h-5" aria-hidden="true"></i>
+            <span>Enviar Pedido de Marcação</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-black py-8 border-t border-neutral-800 text-center text-gray-500 text-sm">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p>&copy; 2026 Aura Piercing Studio. Todos os direitos reservados.</p>
+      <p class="text-xs text-gray-600">Ambiente seguro, inclusivo e 100% acessível.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: ACESSIBILIDADE E LÓGICA DA PÁGINA -->
+  <script>
+    // Inicializar Ícones Lucide
+    lucide.createIcons();
+
+    // Lógica de Controlo de Acessibilidade
+    let currentFontSize = 16;
+    const minFontSize = 12;
+    const maxFontSize = 24;
+
+    const btnIncFont = document.getElementById('btn-inc-font');
+    const btnDecFont = document.getElementById('btn-dec-font');
+    const btnResetFont = document.getElementById('btn-reset-font');
+    const btnContrast = document.getElementById('btn-contrast');
+    const btnGrayscale = document.getElementById('btn-grayscale');
+
+    // Atualizar Tamanho de Fonte Global
+    function setFontSize(size) {
+      currentFontSize = size;
+      document.documentElement.style.setProperty('--base-font-size', `${currentFontSize}px`);
+    }
+
+    btnIncFont.addEventListener('click', () => {
+      if (currentFontSize < maxFontSize) {
+        setFontSize(currentFontSize + 2);
+      }
+    });
+
+    btnDecFont.addEventListener('click', () => {
+      if (currentFontSize > minFontSize) {
+        setFontSize(currentFontSize - 2);
+      }
+    });
+
+    btnResetFont.addEventListener('click', () => {
+      setFontSize(16);
+    });
+
+    // Alternar Alto Contraste
+    btnContrast.addEventListener('click', () => {
+      const isHighContrast = document.body.classList.toggle('high-contrast');
+      btnContrast.setAttribute('aria-pressed', isHighContrast);
+    });
+
+    // Alternar Modo Monocromático
+    btnGrayscale.addEventListener('click', () => {
+      const isGrayscale = document.body.classList.toggle('grayscale-mode');
+      btnGrayscale.setAttribute('aria-pressed', isGrayscale);
+    });
+
+    // Simulação de Envio de Formulário
+    document.getElementById('form-agendamento').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Obrigado pelo teu pedido! Entraremos em contacto brevemente para confirmar a tua marcação.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
